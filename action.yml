@@ -31,8 +31,9 @@ runs:
         tgswitch --version
         echo "Exporting PATH to GITHUB_PATH .."
         echo $HOME/.bin >> $GITHUB_PATH
-        echo "Unlinking default version of terragrunt .."
-        unlink /usr/local/bin/terragrunt
+        # echo "Unlinking default version of terragrunt .."
+        # unlink /usr/local/bin/terragrunt
+        which terragrunt || true
         echo "Done!"
 
 branding:
