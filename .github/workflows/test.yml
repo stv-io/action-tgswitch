@@ -17,21 +17,22 @@ jobs:
           tgswitch
           terragrunt --version
 
-  test-terragrunt-hcl-file:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./
-      - name: test with the version in a terragrunt.hcl file
-        run: |
-          cat << EOF > terragrunt.hcl
-          terraform {
-            required_version = "~> 1"
-          }
-          terragrunt_version_constraint = ">= 0.53"
-          EOF
-          tgswitch
-          terragrunt --version
+  # https://github.com/warrensbox/tgswitch/issues/132
+  # test-terragrunt-hcl-file:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: ./
+  #     - name: test with the version in a terragrunt.hcl file
+  #       run: |
+  #         cat << EOF > terragrunt.hcl
+  #         terraform {
+  #           required_version = "~> 1"
+  #         }
+  #         terragrunt_version_constraint = ">= 0.53"
+  #         EOF
+  #         tgswitch
+  #         terragrunt --version
 
   test-command-line-version:
     runs-on: ubuntu-latest
