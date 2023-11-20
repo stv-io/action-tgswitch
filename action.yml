@@ -17,7 +17,7 @@ runs:
       shell: bash
       run: |
         echo "Downloading install script .."
-        curl -sLo install.sh curl -L https://raw.githubusercontent.com/warrensbox/tgswitch/release/install.sh
+        curl -sLo install.sh https://raw.githubusercontent.com/warrensbox/tgswitch/release/install.sh
         echo "Configuring install script to be executable .."
         chmod 755 install.sh
         echo "Creating $HOME/.bin for tgswitch binary .."
