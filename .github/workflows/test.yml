@@ -1,0 +1,57 @@
+name: testing tgswitch action
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test-tgswitchrc-version-file:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./
+      - name: test with the version in a .tgswitchrc file
+        run: |
+          echo "0.53.2" > .tgswitchrc
+          tgswitch
+          terragrunt --version
+
+  # https://github.com/warrensbox/tgswitch/issues/132
+  # test-terragrunt-hcl-file:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: ./
+  #     - name: test with the version in a terragrunt.hcl file
+  #       run: |
+  #         cat << EOF > terragrunt.hcl
+  #         terraform {
+  #           required_version = "~> 1"
+  #         }
+  #         terragrunt_version_constraint = ">= 0.53"
+  #         EOF
+  #         tgswitch
+  #         terragrunt --version
+
+  test-command-line-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./
+      - name: test with the version on the command line
+        run: |
+          tgswitch 0.52.7
+          terragrunt --version
+
+  test-env-var-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./
+      - name: test with the version in an env var
+        env:
+          TG_VERSION: 0.37.0
+        run: |
+          tgswitch
+          terragrunt --version
